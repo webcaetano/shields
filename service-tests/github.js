@@ -149,3 +149,17 @@ t.create('Commits since')
     name: Joi.string().regex(/^(commits since){1}[\s\S]+$/),
     value: Joi.string().regex(/^\w+$/)
   }));
+
+t.create('Release')
+  .get('/release/photonstorm/phaser.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('release'),
+    value: Joi.string()
+  }));
+
+t.create('(pre-)Release')
+  .get('/release/photonstorm/phaser/all.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('release'),
+    value: Joi.string()
+  }));
