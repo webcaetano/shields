@@ -128,3 +128,10 @@ t.create('Watchers')
     name: Joi.equal('watchers'),
     value: Joi.number().integer().positive()
   }));
+
+t.create('Stars')
+  .get('/stars/badges/shields.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('stars'),
+    value: Joi.string().regex(/^\w+$/)
+  }));
