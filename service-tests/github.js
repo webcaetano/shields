@@ -34,6 +34,20 @@ t.create('GitHub closed pull request raw')
     value: Joi.string().regex(/^\w+?$/)
   }));
 
+t.create('GitHub pull request raw')
+  .get('/issues-pr-raw/badges/shields.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('pull requests'),
+    value: Joi.string().regex(/^\w+?$/)
+  }));
+
+t.create('GitHub pull request')
+  .get('/issues-pr/badges/shields.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('pull requests'),
+    value: Joi.string().regex(/^\w+\sopen$/)
+  }));
+
 t.create('downloads for release without slash')
   .get('/downloads/atom/atom/v0.190.0/total.json')
   .expectJSONTypes(Joi.object().keys({
