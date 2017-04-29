@@ -13,6 +13,13 @@ t.create('License')
     value: Joi.string()
   }));
 
+t.create('Contributors')
+  .get('/contributors/cdnjs/cdnjs.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('contributors'),
+    value: Joi.number().integer().positive()
+  }));
+
 t.create('downloads for release without slash')
   .get('/downloads/atom/atom/v0.190.0/total.json')
   .expectJSONTypes(Joi.object().keys({
