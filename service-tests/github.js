@@ -6,6 +6,13 @@ const ServiceTester = require('./runner/service-tester');
 const t = new ServiceTester({ id: 'github', title: 'GitHub' });
 module.exports = t;
 
+t.create('License')
+  .get('/license/badges/shields.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('license'),
+    value: Joi.string()
+  }));
+
 t.create('downloads for release without slash')
   .get('/downloads/atom/atom/v0.190.0/total.json')
   .expectJSONTypes(Joi.object().keys({
