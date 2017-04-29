@@ -163,3 +163,10 @@ t.create('(pre-)Release')
     name: Joi.equal('release'),
     value: Joi.string()
   }));
+
+t.create('Tag')
+  .get('/tag/photonstorm/phaser.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('tag'),
+    value: Joi.string()
+  }));
