@@ -34,18 +34,18 @@ t.create('GitHub closed pull request raw')
     value: Joi.string().regex(/^\w+?$/)
   }));
 
-t.create('GitHub pull request raw')
-  .get('/issues-pr-raw/badges/shields.json')
-  .expectJSONTypes(Joi.object().keys({
-    name: Joi.equal('pull requests'),
-    value: Joi.string().regex(/^\w+?$/)
-  }));
-
 t.create('GitHub pull request')
   .get('/issues-pr/badges/shields.json')
   .expectJSONTypes(Joi.object().keys({
     name: Joi.equal('pull requests'),
     value: Joi.string().regex(/^\w+\sopen$/)
+  }));
+
+t.create('GitHub pull request raw')
+  .get('/issues-pr-raw/badges/shields.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('pull requests'),
+    value: Joi.string().regex(/^\w+?$/)
   }));
 
 t.create('GitHub pull request')
@@ -60,6 +60,20 @@ t.create('GitHub pull request raw')
   .expectJSONTypes(Joi.object().keys({
     name: Joi.equal('closed issues'),
     value: Joi.string().regex(/^\w+\+?$/)
+  }));
+
+t.create('GitHub issues')
+  .get('/issues/badges/shields.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('issues'),
+    value: Joi.string().regex(/^\w+\sopen$/)
+  }));
+
+t.create('GitHub issues raw')
+  .get('/issues-raw/badges/shields.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('issues'),
+    value: Joi.string().regex(/^\w+$/)
   }));
 
 t.create('downloads for release without slash')
