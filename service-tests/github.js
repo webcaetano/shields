@@ -142,3 +142,10 @@ t.create('Forks')
     name: Joi.equal('forks'),
     value: Joi.number().integer().positive()
   }));
+
+t.create('Commits since')
+  .get('/commits-since/badges/shields/a0663d8da53fb712472c02665e6ff7547ba945b7.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.string().regex(/^(commits since){1}[\s\S]+$/),
+    value: Joi.string().regex(/^\w+$/)
+  }));
