@@ -20,6 +20,20 @@ t.create('Contributors')
     value: Joi.number().integer().positive()
   }));
 
+t.create('GitHub closed pull request')
+  .get('/issues-pr-closed/badges/shields.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('closed pull requests'),
+    value: Joi.string().regex(/^\w+\sclosed$/)
+  }));
+
+t.create('GitHub closed pull request raw')
+  .get('/issues-pr-closed-raw/badges/shields.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('closed pull requests'),
+    value: Joi.string().regex(/^\w+?$/)
+  }));
+
 t.create('downloads for release without slash')
   .get('/downloads/atom/atom/v0.190.0/total.json')
   .expectJSONTypes(Joi.object().keys({
