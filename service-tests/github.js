@@ -37,3 +37,10 @@ t.create('downloads for specific asset with slash')
 t.create('downloads for unknown release')
   .get('/downloads/atom/atom/does-not-exist/total.json')
   .expectJSON({ name: 'downloads', value: 'none' });
+
+t.create('File size')
+  .get('/size/webcaetano/craft/build/craft.min.js.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('size'),
+    value: Joi.string().regex(/^[0-9]*[.]?[0-9]+\s(B|kB|MB|GB|TB|PB|EB|ZB|YB)$/)
+  }));
