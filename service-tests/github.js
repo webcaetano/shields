@@ -6,6 +6,13 @@ const ServiceTester = require('./runner/service-tester');
 const t = new ServiceTester({ id: 'github', title: 'GitHub' });
 module.exports = t;
 
+t.create('File size')
+  .get('/size/webcaetano/craft/build/craft.min.js.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('size'),
+    value: Joi.string().regex(/^[0-9]*[.]?[0-9]+\s(B|kB|MB|GB|TB|PB|EB|ZB|YB)$/)
+  }));
+
 t.create('downloads for release without slash')
   .get('/downloads/atom/atom/v0.190.0/total.json')
   .expectJSONTypes(Joi.object().keys({
