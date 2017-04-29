@@ -31,6 +31,7 @@ var svg2img = require('./lib/svg-to-img.js');
 var loadLogos = require('./lib/load-logos.js');
 var githubAuth = require('./lib/github-auth.js');
 var querystring = require('querystring');
+var prettyBytes = require('pretty-bytes');
 var xml2js = require('xml2js');
 var serverSecrets = require('./lib/server-secrets');
 var prettyBytes = require('pretty-bytes');
