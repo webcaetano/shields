@@ -112,7 +112,11 @@ t.create('File size')
   .get('/size/webcaetano/craft/build/craft.min.js.json')
   .expectJSONTypes(Joi.object().keys({
     name: Joi.equal('size'),
-    value: Joi.string().regex(/^[0-9]*[.]?[0-9]+\s(B|kB|MB|GB|TB|PB|EB|ZB|YB)$/)
+    value: [
+      Joi.string().regex(/^[0-9]*[.]?[0-9]+\s(B|kB|MB|GB|TB|PB|EB|ZB|YB)$/),
+      Joi.string().regex(/^repo or file not found$/),
+      Joi.string().regex(/^unknown file$/),
+    ]
   }));
 
 t.create('Followers')
