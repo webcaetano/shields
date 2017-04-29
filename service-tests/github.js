@@ -76,38 +76,6 @@ t.create('GitHub issues raw')
     value: Joi.string().regex(/^\w+$/)
   }));
 
-t.create('downloads for release without slash')
-  .get('/downloads/atom/atom/v0.190.0/total.json')
-  .expectJSONTypes(Joi.object().keys({
-    name: Joi.equal('downloads'),
-    value: Joi.not('none')
-  }));
-
-t.create('downloads for specific asset without slash')
-  .get('/downloads/atom/atom/v0.190.0/atom-amd64.deb.json')
-  .expectJSONTypes(Joi.object().keys({
-    name: Joi.equal('downloads'),
-    value: Joi.not('none')
-  }));
-
-t.create('downloads for release with slash')
-  .get('/downloads/NHellFire/dban/stable/v2.2.8/total.json')
-  .expectJSONTypes(Joi.object().keys({
-    name: Joi.equal('downloads'),
-    value: Joi.not('none')
-  }));
-
-t.create('downloads for specific asset with slash')
-  .get('/downloads/NHellFire/dban/stable/v2.2.8/dban-2.2.8_i586.iso.json')
-  .expectJSONTypes(Joi.object().keys({
-    name: Joi.equal('downloads'),
-    value: Joi.not('none')
-  }));
-
-t.create('downloads for unknown release')
-  .get('/downloads/atom/atom/does-not-exist/total.json')
-  .expectJSON({ name: 'downloads', value: 'none' });
-
 t.create('File size')
   .get('/size/webcaetano/craft/build/craft.min.js.json')
   .expectJSONTypes(Joi.object().keys({
@@ -189,16 +157,23 @@ t.create('Downloads latest release')
     value: Joi.string().regex(/^\w+$/)
   }));
 
-t.create('Downloads by specific release')
-  .get('/downloads/photonstorm/phaser/v.2.4.4/total.json')
+t.create('Downloads for specific asset')
+  .get('/downloads/atom/atom/v0.190.0/atom-amd64.deb.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('downloads'),
+    value: [
+      Joi.string().regex(/^\w+\s+([\s\S]+)?\s+\[[\s\S]+]$/),
+      Joi.string().regex(/^none$/)
+    ]
+  }));
+
+t.create('Downloads for release without slash')
+  .get('/downloads/atom/atom/v0.190.0/total.json')
   .expectJSONTypes(Joi.object().keys({
     name: Joi.equal('downloads'),
     value: [Joi.string().regex(/^none$/),Joi.string().regex(/^\w+\s+[\s\S]+$/)]
   }));
 
-t.create('Downloads by specific asset')
-  .get('/downloads/photonstorm/phaser/latest/phaser.js.json')
-  .expectJSONTypes(Joi.object().keys({
-    name: Joi.equal('downloads'),
-    value: [Joi.string().regex(/^none$/),Joi.string().regex(/^\w+\s+\[[\s\S]+]$/)]
-  }));
+t.create('downloads for unknown release')
+  .get('/downloads/NHellFire/dba/does-not-exist/total.json')
+  .expectJSON({ name: 'downloads', value: 'none' });
