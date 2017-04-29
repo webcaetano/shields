@@ -121,3 +121,10 @@ t.create('Followers')
     name: Joi.equal('followers'),
     value: Joi.string().regex(/^\w+$/)
   }));
+
+t.create('Watchers')
+  .get('/watchers/badges/shields.json')
+  .expectJSONTypes(Joi.object().keys({
+    name: Joi.equal('watchers'),
+    value: Joi.number().integer().positive()
+  }));
